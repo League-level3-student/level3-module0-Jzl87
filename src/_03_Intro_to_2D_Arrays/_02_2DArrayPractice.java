@@ -31,8 +31,8 @@ public class _02_2DArrayPractice {
      *          6, 7, 8
      */
     public Integer[][] test1() {
-        
-        return null;
+       
+        return new Integer[3][3];
     }
     
     /*
@@ -42,7 +42,7 @@ public class _02_2DArrayPractice {
      */
     public String[][] test2() {
         
-        return null;
+        return new String[2][4];
     }
     
     /*
@@ -55,7 +55,7 @@ public class _02_2DArrayPractice {
      */
     public Boolean[][] test3() {
         
-        return null;
+        return new Boolean [5][2];
     }
     
     /*
