@@ -38,10 +38,11 @@ public class Cell implements Drawable {
 			if (numNeighbors < 2 || numNeighbors > 3) {
 				isAlive = false;
 			}
-		} else if (numNeighbors == 3) {
-			isAlive = true;
+		} else {
+			if (numNeighbors == 3) {
+				isAlive = true;
+			}
 		}
-
 	}
 
 	public int getX() {
