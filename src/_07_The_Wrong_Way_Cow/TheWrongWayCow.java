@@ -52,30 +52,37 @@ import java.util.ArrayList;
 
 public class TheWrongWayCow {
 
-	static int upCow = 0;
-	static int downCow = 0;
-	static int leftCow = 0;
-	static int rightCow = 0;
-
 	public static int[] findWrongWayCow(final char[][] field) {
 		// Fill in the code to return the [col, row] coordinate position of the
 		// head (letter 'c') of the wrong way cow!
+		
+		int upCow = 0;
+		int downCow = 0;
+		int leftCow = 0;
+		int rightCow = 0;
 
-		upCow = 0;
-		downCow = 0;
-		leftCow = 0;
-		rightCow = 0;
-
+		// coordinates of wrong way cow
 		int[] resultArray = new int[2];
-		int wrongWay;
-		ArrayList<Integer> cowDir = new ArrayList<Integer>();
 
-		for (int y = 0; y < field.length; y++) {
-			for (int x = 0; x < field[y].length; x++) {
+		// direction of wrong way cow
+		int wrongWay = -1;
+
+		// traversal 1
+		for (int x = 0; x < field.length; x++) {
+			for (int y = 0; y < field[x].length; y++) {
+
+				// if character is a c, check if its a cow and record its direction
 				if (field[x][y] == 'c') {
-					if (checkCow(field, x, y) != -1) {
-						cowDir.add(checkCow(field, x, y));
+					checkCow(field, x, y);
 
+					if (checkCow(field, x, y) == 0) {
+						upCow++;
+					} else if (checkCow(field, x, y) == 1) {
+						downCow++;
+					} else if (checkCow(field, x, y) == 2) {
+						leftCow++;
+					} else if (checkCow(field, x, y) == 3) {
+						rightCow++;
 					}
 				}
 			}
@@ -89,19 +96,18 @@ public class TheWrongWayCow {
 			wrongWay = 2;
 		} else if (rightCow == 1) {
 			wrongWay = 3;
-		} else {
-			wrongWay = -1;
 		}
-		
-		for (int y = 0; y < field.length; y++) {
-			for (int x = 0; x < field[y].length; x++) {
+
+		for (int x = 0; x < field.length; x++) {
+			for (int y = 0; y < field[x].length; y++) {
 				if (field[x][y] == 'c' && checkCow(field, x, y) == wrongWay) {
+					resultArray[0] = y;
 					resultArray[1] = x;
-					resultArray[2] = y;
+					System.out.println("THIS IS THE SPOT WITH THE ANSWER     " + x + "   " + y);
 				}
 			}
 		}
-
+		System.out.println("------------------------");
 		return resultArray;
 	}
 
@@ -111,26 +117,26 @@ public class TheWrongWayCow {
 		// 2 = left
 		// 3 = right
 
-		if (field[x][y + 1] == 'o') {
+		if (y + 2 < field[x].length && field[x][y + 1] == 'o') {
 			if (field[x][y + 2] == 'w') {
-				downCow++;
+
 				return 1;
 
 			}
-		} else if (field[x][y - 1] == 'o') {
+		} else if (y - 2 >= 0 && field[x][y - 1] == 'o') {
 			if (field[x][y - 2] == 'w') {
-				upCow++;
+
 				return 0;
 			}
-		} else if (field[x + 1][y] == 'o') {
+		} else if (x + 2 < field.length && field[x + 1][y] == 'o') {
 			if (field[x + 2][y] == 'w') {
-				leftCow++;
-				return 2;
-			}
-		} else if (field[x - 1][y] == 'o') {
-			if (field[x - 2][y] == 'w') {
-				rightCow++;
+
 				return 3;
+			}
+		} else if (x - 2 >= 0 && field[x - 1][y] == 'o') {
+			if (field[x - 2][y] == 'w') {
+
+				return 2;
 			}
 		}
 
